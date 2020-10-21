@@ -1,6 +1,6 @@
 package com.carrito.carrito.utils
 
-enum class StatusCart {
+enum class EnumStatusCart {
     PENDING,
     COMPLETED
 }
