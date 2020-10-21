@@ -1,11 +1,11 @@
 package com.carrito.carrito.model
 
-import com.carrito.carrito.utils.StatusCart
+import com.carrito.carrito.utils.EnumStatusCart
 import javax.persistence.*
 
 @Entity
 @Table (name = "carts")
-data class Cart(var status: StatusCart) {
+data class Cart(var status: EnumStatusCart) {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
