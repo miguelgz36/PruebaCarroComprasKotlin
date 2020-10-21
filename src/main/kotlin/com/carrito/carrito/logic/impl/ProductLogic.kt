@@ -18,11 +18,11 @@ class ProductLogic: IProductLogic {
         var result: MutableList<Product> = mutableListOf()
 
         var pageable: PageRequest = PageRequest.of(pagina, cantidadPorPagina)
-        var page: Page<Product> = productRepository?.findAll(pageable) ?: Page.empty()
+        var page: Page<Product> = productRepository!!.findAll(pageable)
 
-        page.onEach { product: Product -> {
-            result.add(product);
-        } }
+        page.onEach { product: Product ->
+            result.add(product)
+        }
 
         return result
     }

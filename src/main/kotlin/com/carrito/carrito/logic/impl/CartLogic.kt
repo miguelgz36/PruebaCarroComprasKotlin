@@ -16,7 +16,7 @@ class CartLogic: ICartLogic {
 
     override fun checkOut(idCart: Long): Boolean {
 
-        var optionalCart: Optional<Cart> = cartRepository?.findById(idCart) ?: Optional.empty()
+        var optionalCart: Optional<Cart> = cartRepository!!.findById(idCart)
         if(optionalCart.isPresent){
             optionalCart.get().status = EnumStatusCart.COMPLETED
             return true
