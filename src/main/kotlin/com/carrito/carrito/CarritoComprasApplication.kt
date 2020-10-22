@@ -34,7 +34,7 @@ class CarritoComprasApplication:CommandLineRunner{
 	val productCartRepository: ProductCartRepository?= null
 
 	override fun run(vararg args: String?) {
-		fillTestData()
+		//fillTestData()
 	}
 	fun fillTestData(){
 		val products: MutableList<Product> = mutableListOf()
