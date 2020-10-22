@@ -7,6 +7,7 @@ import com.carrito.carrito.logic.IProductCartLogic
 import com.carrito.carrito.model.Cart
 import com.carrito.carrito.model.Product
 import com.carrito.carrito.model.ProductCart
+import com.carrito.carrito.utils.EnumStatusCart
 import javassist.NotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -35,6 +36,9 @@ class ProductCartLogic: IProductCartLogic {
         if(!cartOptional.isPresent){
             throw NotFoundException("Carro de compras no existe ")
         }
+        if(cartOptional.get().status == EnumStatusCart.COMPLETED){
+            throw NotFoundException("El carrito ya esta completado ")
+        }
         if(quantity <= 0){
             throw Exception("Cantidad negativa")
         }
@@ -52,6 +56,9 @@ class ProductCartLogic: IProductCartLogic {
         if(!productCartOptional.isPresent){
             return false
         }
+        if(productCartOptional.get().cart.status == EnumStatusCart.COMPLETED){
+            return false
+        }
         productCartRepository?.deleteById(id)
         return true
     }
@@ -62,6 +69,9 @@ class ProductCartLogic: IProductCartLogic {
 
         if(!productCartOptional.isPresent){
             throw NotFoundException("Producto del carro no existe ")
+        }
+        if(productCartOptional.get().cart.status == EnumStatusCart.COMPLETED){
+            throw NotFoundException("El carrito ya esta completado ")
         }
         if(newQuantity <= 0){
             throw Exception("Cantidad negativa")
