@@ -12,15 +12,15 @@ import org.springframework.stereotype.Component
 class ProductLogic: IProductLogic {
 
     @Autowired
-    var productRepository: ProductRepository ?= null
+    val productRepository: ProductRepository ?= null
 
-    override fun listarProductos(pagina: Int, cantidadPorPagina: Int): List<Product> {
-        var result: MutableList<Product> = mutableListOf()
+    override fun list(page: Int, size: Int): List<Product> {
+        val result: MutableList<Product> = mutableListOf()
 
-        var pageable: PageRequest = PageRequest.of(pagina, cantidadPorPagina)
-        var page: Page<Product> = productRepository!!.findAll(pageable)
+        val pageable: PageRequest = PageRequest.of(page, size)
+        val pageProducts: Page<Product> = productRepository!!.findAll(pageable)
 
-        page.onEach { product: Product ->
+        pageProducts.onEach { product: Product ->
             result.add(product)
         }
 

@@ -12,16 +12,20 @@ import java.util.*
 class CartLogic: ICartLogic {
 
     @Autowired
-    var cartRepository: CartRepository ?= null
+    val cartRepository: CartRepository ?= null
 
     override fun checkOut(idCart: Long): Boolean {
 
-        var optionalCart: Optional<Cart> = cartRepository!!.findById(idCart)
+        val optionalCart: Optional<Cart> = cartRepository!!.findById(idCart)
         if(optionalCart.isPresent){
             optionalCart.get().status = EnumStatusCart.COMPLETED
             return true
         }
         return false
+    }
+
+    override fun list(): MutableList<Cart> {
+        return cartRepository!!.findAll()
     }
 
 }
