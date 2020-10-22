@@ -17,13 +17,15 @@ class CartLogic: ICartLogic {
     override fun checkOut(idCart: Long): Boolean {
 
         val optionalCart: Optional<Cart> = cartRepository!!.findById(idCart)
-        if(optionalCart.isPresent){
+        if(optionalCart.isPresent && optionalCart.get().status == EnumStatusCart.PENDING){
             optionalCart.get().status = EnumStatusCart.COMPLETED
+            cartRepository!!.save(optionalCart.get())
             return true
         }
         return false
     }
 
+    //Para pruebas
     override fun list(): MutableList<Cart> {
         return cartRepository!!.findAll()
     }
