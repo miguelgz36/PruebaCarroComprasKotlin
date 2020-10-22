@@ -15,6 +15,12 @@ class ProductLogic: IProductLogic {
     val productRepository: ProductRepository ?= null
 
     override fun list(page: Int, size: Int): List<Product> {
+        if(page < 0){
+            throw Exception("Página menor a 0")
+        }
+        if(size <= 0){
+            throw Exception("Tamaño menor o igual a 0")
+        }
         val result: MutableList<Product> = mutableListOf()
 
         val pageable: PageRequest = PageRequest.of(page, size)

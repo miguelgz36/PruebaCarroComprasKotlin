@@ -15,7 +15,7 @@ class RestProductController {
     @Autowired
     val productLogic: IProductLogic? = null
 
-    @GetMapping("list?{page}/{size}")
+    @GetMapping("list/{page}/{size}")
     fun list(@PathVariable("page") page: Int, @PathVariable("size") size: Int): ResponseEntity<List<Product>>{
         return try {
             ResponseEntity(productLogic!!.list(page, size), HttpStatus.OK)
