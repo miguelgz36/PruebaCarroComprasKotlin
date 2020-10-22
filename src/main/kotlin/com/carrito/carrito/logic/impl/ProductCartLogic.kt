@@ -15,23 +15,23 @@ import java.util.*
 class ProductCartLogic: IProductCartLogic {
 
     @Autowired
-    var productRepository: ProductRepository ?= null
+    val productRepository: ProductRepository ?= null
 
     @Autowired
-    var cartRepository: CartRepository ?= null
+    val cartRepository: CartRepository ?= null
 
     @Autowired
-    var productCartRepository: ProductCartRepository ?= null
+    val productCartRepository: ProductCartRepository ?= null
 
     override fun createProductCart(product_id: Long, cart_id: Long, quantity: Double): ProductCart {
-        var newProductCart: ProductCart = ProductCart(quantity)
-        var productOptional: Optional<Product> = productRepository?.findById(product_id) ?: Optional.empty()
-        var carOptional: Optional<Cart> = cartRepository?.findById(cart_id) ?: Optional.empty()
+        val newProductCart= ProductCart(quantity)
+        val productOptional: Optional<Product> = productRepository!!.findById(product_id)
+        val carOptional: Optional<Cart> = cartRepository!!.findById(cart_id)
 
         if(productOptional.isPresent && carOptional.isPresent){
             newProductCart.product = productOptional.get()
             newProductCart.cart = carOptional.get()
-            productCartRepository?.save(newProductCart)
+            productCartRepository!!.save(newProductCart)
         }else{
             TODO("Make exception")
         }
@@ -39,13 +39,14 @@ class ProductCartLogic: IProductCartLogic {
         return newProductCart
     }
 
-    override fun deleteProductCart(id: Long) {
+    override fun deleteProductCart(id: Long): Boolean{
         productCartRepository?.deleteById(id)
+        return true
     }
 
     override fun modifyQuantity(idProductCars: Long, newQuantity: Double): Double {
-        var productCart: ProductCart ?= null
-        var productCartOptional: Optional<ProductCart> = productCartRepository?.findById(idProductCars) ?: Optional.empty()
+        val productCart: ProductCart?
+        val productCartOptional: Optional<ProductCart> = productCartRepository!!.findById(idProductCars)
 
         if(productCartOptional.isPresent){
             productCart = productCartOptional.get()
@@ -55,6 +56,10 @@ class ProductCartLogic: IProductCartLogic {
             TODO("Make exception")
         }
         return productCart.quantity
+    }
+
+    override fun list(): MutableList<ProductCart> {
+        return productCartRepository!!.findAll()
     }
 
 }

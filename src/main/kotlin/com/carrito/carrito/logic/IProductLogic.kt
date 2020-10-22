@@ -4,6 +4,6 @@ import com.carrito.carrito.model.Product
 
 interface IProductLogic {
 
-    fun listarProductos(pagina: Int, cantidadPorPagina: Int): List<Product>
+    fun list(page: Int, size: Int): List<Product>
 
 }

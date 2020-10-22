@@ -8,7 +8,7 @@ data class Product(val nombre:String = "", val sku:String = "", val descripcion:
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Long = 0L;
+    var id: Long = 0L
 
 }
 

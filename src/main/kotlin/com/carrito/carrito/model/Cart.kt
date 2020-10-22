@@ -5,7 +5,7 @@ import javax.persistence.*
 
 @Entity
 @Table (name = "carts")
-data class Cart(var status: EnumStatusCart) {
+data class Cart(@Enumerated var status: EnumStatusCart) {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
